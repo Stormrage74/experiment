@@ -18,6 +18,17 @@ class front extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+	
+	public function __construct()
+	{
+		parent::__construct();
+		// load used Model
+		$this->load->model('m_utilisateur');
+		
+	}
+	
+	
+	
 	public function index()
 	{
 		//$this->load->view('welcome_message');
@@ -28,7 +39,43 @@ class front extends CI_Controller {
 	
 	public function verify()
 	{
-		print_r(' login :'.$this->input->get('login'));
-		print_r(' password :'.$this->input->get('password'));
+		if ($this->input->post('login') && $this->input->post('password'))
+		{
+			//instantiate user
+			$utilisateur = new m_utilisateur();
+			
+			//check login
+			$result = $utilisateur->login($this->input->post('login'), $this->input->post('password'));
+			
+			if ($result)
+			{
+				print_r('bienvenu '.$utilisateur->firstname);
+				print_r($utilisateur->lastname);
+				print_r($utilisateur->email);
+			}
+			else
+			{
+				$html = "<script> alert('wrong login/password try again') </script>";
+				echo $html;
+				//redirect('front/login', 'refresh');  <-- actually needed but dont work properly
+				$this->load->view('front/login');
+			}
+			
+		}
+		else 
+		{
+			//Field validation failed.  User redirected to login page
+			//$message = "Login ou mot de passe incorrect";
+			
+			$html = "<script> alert('hang on ! please enter login/password') </script>";
+			echo $html;
+			//redirect('front/login', 'refresh');  <-- actually needed but dont work properly
+			$this->load->view('front/login');
+		}
+		
+		
+		
+		
+		
 	}
 }
