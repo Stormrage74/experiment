@@ -27,10 +27,10 @@ class m_utilisateur extends CI_Model
 				$requete .= " user_id, user_firstname, user_lastname, user_email";
 		$requete .= " from  f_user";
 		$requete .= " where";
-		$requete .= " user_login = '".$this->db->escape($login)."' and user_pswd = '".$this->db->escape($pswd)."'";
+		$requete .= " user_login = ".$this->db->escape($login)." and user_pswd = ".$this->db->escape($pswd)." ; ";
 		$requete .= " ;";
 		
-		$result;
+		$result = TRUE;
 		
 		try 
 		{
@@ -41,15 +41,21 @@ class m_utilisateur extends CI_Model
 			}
 			else
 			{
-				$result = TRUE;
+			
 				
 				if ($query->num_rows() == 1) 
 				{
+					$result = TRUE;
+					
 					$row = $query->row();
 					$this->firstname = $row->user_firstname;
 					$this->lastname = $row->user_lastname;
 					$this->email = $row->user_email;
 					$this->id = $row->user_id;
+				}
+				else 
+				{
+					$result = FALSE;
 				}
 			}
 		} 
