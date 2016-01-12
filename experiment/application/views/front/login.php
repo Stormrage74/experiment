@@ -36,4 +36,8 @@ action="<?php echo base_url()."front/verify"; ?>"
 </section>
 
 
-
+<section>
+	<div id="create_login">
+		<a href=" <?php $this->load->view('front/subscribe'); ?>"></a>
+	</div>
+</section>
