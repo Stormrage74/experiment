@@ -38,6 +38,6 @@ action="<?php echo base_url()."front/verify"; ?>"
 
 <section>
 	<div id="create_login">
-		<a href=" <?php $this->load->view('front/subscribe'); ?>"></a>
+		<a href=" <?php echo base_url()."controlc/index"; ?>"> s'inscrire </a>
 	</div>
 </section>
