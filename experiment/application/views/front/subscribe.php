@@ -1,14 +1,6 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=Cp1252">
-<title>Insert title here</title>
-</head>
-
-
-
-	<body>
-		<form id ="subscribe" action="<?php echo base_url()."controlc/verify"; ?>" method = "POST">
+<section>
+ 	<div id="subscribe">
+		<form id ="subscribe" action="<?php echo base_url()."controlc/verify"; ?>" method = "post">
 	   <label>First Name</label><br/>
 			<input id ="iuser_name" name = "user_name" type= "text" /><br/>
 		<label>Last Name</label><br/>
@@ -22,11 +14,6 @@
 		<label>email</label><br/>
 			<input id ="iuser_mail" name = "user_mail" type= "text" />		<br/>
 		    <input type="submit" value="Valider">
-		
 		</form>
-   <?php
-
-	?>
-    </body>
-
-</html>
+	</div>
+</section>
