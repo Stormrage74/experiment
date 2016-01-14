@@ -19,7 +19,7 @@ class front extends CI_Controller {
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 	
-	public function __construct()
+	function __construct()
 	{
 		parent::__construct();
 		// load used Model
@@ -32,10 +32,24 @@ class front extends CI_Controller {
 	public function index()
 	{
 		//$this->load->view('welcome_message');
-		$this->load->view('front/login');
-		
+		$this->header("login");
+		$data['create_account'] = $this->createAccount();
+		$this->load->view('front/login',$data);
+		$this->footer();
 	}
 	
+	private function header($title = NULL, $localjs = "event.js")
+	{
+		$data['title'] = $title;
+		$data['localjs'] = $localjs;
+		$this->load->view('front/header', $data);
+	}
+	
+	private function footer()
+	{ 
+		$data = NULL;
+		$this->load->view('front/footer',$data);
+	}
 	
 	public function verify()
 	{
@@ -95,6 +109,35 @@ class front extends CI_Controller {
 			$data = array('upload_data' => $this->upload->data());
 	
 			$this->load->view('front/uploads', $data);
+		}
+	}
+	
+	private function createAccount()
+	{
+		$this->load->view('front/create_account');
+	}
+	
+	private function register()
+	{
+		
+	}
+	
+	public function unamed0()
+	{
+		if (isset($_POST))
+		{
+
+			$user_login = $_POST['iuser_login'];
+			$user_psw = $_POST['iuser_psw'];
+				
+			$user_name = $_POST['iuser_name'];
+			$user_name2 = $_POST['iuser_name2'];
+			$user_mail = $_POST['iuser_mail'];
+		}
+		else
+		{
+			echo "<script> alert('failed subscribing, nothing transmitted') </script>";
+			$this->load->view('front/subscribe');
 		}
 	}
 	
