@@ -1,6 +1,6 @@
 <section>
  	<div id="subscribe">
-		<form id ="subscribe" action="<?php echo base_url()."controlc/verify"; ?>" method = "post">
+		<form id ="subscribe" action="<?php echo base_url()."front/unamed0"; ?>" method = "post">
 	   <label>First Name</label><br/>
 			<input id ="iuser_name" name = "user_name" type= "text" /><br/>
 		<label>Last Name</label><br/>
