@@ -1,26 +1,3 @@
-<?php
-
-
-
-/*
-action="<?php echo base_url()."front/verify"; ?>"
-
-<?php if (isset($lsd)) echo 'value="'.$lsd.'"'; ?>
-
- <?php if (isset($style) && $style != NULL) echo 'value="'.$style.'"'; ?>
-
-<?php if (isset($login)) echo 'value="'.$login.'"'; ?>
-
-<?php if (isset($password)) echo 'value="'.$password.'"'; ?>
-
-
- <?php if (isset($autologin)) echo $autologin; ?>
- 
- <?php echo base_url()."front/login/forgot"; ?>
-*/
-
-?>
-
 
 <section>
     <div id="login">
@@ -36,8 +13,4 @@ action="<?php echo base_url()."front/verify"; ?>"
 </section>
 
 
-<section>
-	<div id="create_login">
-		<a href=" <?php echo base_url()."controlc/index"; ?>"> s'inscrire </a>
-	</div>
-</section>
+
