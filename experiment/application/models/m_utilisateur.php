@@ -71,10 +71,45 @@ class m_utilisateur extends CI_Model
 	
 	
 	
+	function uniqueLogin ($login)
+	{
+		if ($login)
+		{
+			$request ="Select *";
+			$request .=" from f_user";
+			$request .=" where user_login";
+			$request .=" = ".$this->db->escape($login)." ;";
+			
+			$result = TRUE;
+			
+			try
+			{
+				$query = $this->db->query($requete);
+				if (!$query)
+				{
+					throw new Exception();
+				}
+				else
+				{
+					if ($query->num_rows() == 1)
+					{
+						$result = TRUE;
+					}
+					else
+					{
+						$result = FALSE;
+					}
+				}
+			}
+			catch (Exception $e)
+			{
+				log_message('error', 'check user exist' . $e->getMessage());
+				$result = FALSE;
+			}
+		}
 	
 	
-	
-	
+	}
 	
 	
 	
