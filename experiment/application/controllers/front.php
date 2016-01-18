@@ -33,8 +33,15 @@ class front extends CI_Controller {
 	{
 		//$this->load->view('welcome_message');
 		$this->header("login");
-		$data['create_account'] = $this->createAccount();
-		$this->load->view('front/login',$data);
+		
+		// methode 1
+		//$data['create_account'] = $this->createAccount();
+		//$this->load->view('front/login',$data);
+		
+		// methode 2
+		$this->createAccount();
+		$this->load->view('front/login');
+		
 		$this->footer();
 	}
 	
@@ -119,7 +126,7 @@ class front extends CI_Controller {
 	
 	private function register()
 	{
-		
+		$this->load->view('front/subscribe');
 	}
 	
 	public function unamed0()
