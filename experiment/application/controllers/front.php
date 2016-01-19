@@ -23,7 +23,7 @@ class front extends CI_Controller {
 	{
 		parent::__construct();
 		// load used Model
-		$this->load->model('m_utilisateur');
+		//$this->load->model('m_utilisateur');
 		
 	}
 	
@@ -39,10 +39,10 @@ class front extends CI_Controller {
 		//$this->load->view('front/login',$data);
 		
 		// methode 2
-		$this->createAccount();
-		$this->load->view('front/login');
-		
-		$this->footer();
+// 		$this->createAccount();
+// 		$this->load->view('front/login');
+		$this->login();
+ 		$this->footer();
 	}
 	
 	private function header($title = NULL, $localjs = "event.js")
@@ -58,6 +58,12 @@ class front extends CI_Controller {
 		$this->load->view('front/footer',$data);
 	}
 	
+	public function login()
+	{
+		//$input = array('username'=>'', 'password'=>'');
+		//echo form_open('front/verify', '', $input);
+		echo form_input('username');
+	}
 	public function verify()
 	{
 		if ($this->input->post('login') && $this->input->post('password'))
@@ -124,9 +130,9 @@ class front extends CI_Controller {
 		$this->load->view('front/create_account');
 	}
 	
-	private function register()
+	public function register()
 	{
-		$this->load->view('front/subscribe');
+		$this->load->view('front/subscribe_form');
 	}
 	
 	public function unamed0()
@@ -144,7 +150,7 @@ class front extends CI_Controller {
 		else
 		{
 			echo "<script> alert('failed subscribing, nothing transmitted') </script>";
-			$this->load->view('front/subscribe');
+			$this->load->view('front/subscribe_form');
 		}
 	}
 	
