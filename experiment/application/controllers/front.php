@@ -60,99 +60,21 @@ class front extends CI_Controller {
 	
 	public function login()
 	{
-		//$input = array('username'=>'', 'password'=>'');
-		//echo form_open('front/verify', '', $input);
-		echo form_input('username');
-	}
-	public function verify()
-	{
-		if ($this->input->post('login') && $this->input->post('password'))
-		{
-			//instantiate user
-			$utilisateur = new m_utilisateur();
-			
-			//check login
-			$result = $utilisateur->login($this->input->post('login'), $this->input->post('password'));
-			
-			if ($result)
-			{
-				print_r('bienvenu '.$utilisateur->firstname);
-				print_r($utilisateur->lastname);
-				print_r($utilisateur->email);
-			}
-			else
-			{
-				$html = "<script> alert('wrong login/password try again') </script>";
-				echo $html;
-				//redirect('front/login', 'refresh');  <-- actually needed but dont work properly
-				$this->load->view('front/login');
-			}
-			
-		}
-		else 
-		{
-			//Field validation failed.  User redirected to login page
-			//$message = "Login ou mot de passe incorrect";
-			
-			$html = "<script> alert('hang on ! please enter login/password') </script>";
-			echo $html;
-			//redirect('front/login', 'refresh');  <-- actually needed but dont work properly
-			$this->load->view('front/login');
-		}
+		$this->load->view('front/login');
 	}
 	
-	public function do_upload()
-	{
-		$config['upload_path']          = 'application/uploads/';
-		$config['allowed_types']        = 'gif|jpg|png|txt';
-		$config['max_size']             = 100;
-		$config['max_width']            = 1024;
-		$config['max_height']           = 768;
-	
-		$this->load->library('upload', $config);
-	
-		if ( ! $this->upload->do_upload('userfile'))
+	public function verify(){
+		
+		var_dump($_POST);
+		
+		if ($this->form_validation->run() == FALSE)
 		{
-			$error = array('error' => $this->upload->display_errors());
-	
-			$this->load->view('front/upload', $error);
+			$html = "<p style=' color = red '> its false </p>";
+			echo html_escape($html);
 		}
-		else
-		{
-			$data = array('upload_data' => $this->upload->data());
-	
-			$this->load->view('front/uploads', $data);
-		}
+		
 	}
 	
-	private function createAccount()
-	{
-		$this->load->view('front/create_account');
-	}
-	
-	public function register()
-	{
-		$this->load->view('front/subscribe_form');
-	}
-	
-	public function unamed0()
-	{
-		if (isset($_POST))
-		{
-
-			$user_login = $_POST['iuser_login'];
-			$user_psw = $_POST['iuser_psw'];
-				
-			$user_name = $_POST['iuser_name'];
-			$user_name2 = $_POST['iuser_name2'];
-			$user_mail = $_POST['iuser_mail'];
-		}
-		else
-		{
-			echo "<script> alert('failed subscribing, nothing transmitted') </script>";
-			$this->load->view('front/subscribe_form');
-		}
-	}
 	
 	
 }
