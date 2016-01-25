@@ -22,25 +22,14 @@ class front extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		// load used Model
-		//$this->load->model('m_utilisateur');
-		
 	}
 	
 	
 	
 	public function index()
 	{
-		//$this->load->view('welcome_message');
+		
 		$this->header("login");
-		
-		// methode 1
-		//$data['create_account'] = $this->createAccount();
-		//$this->load->view('front/login',$data);
-		
-		// methode 2
-// 		$this->createAccount();
-// 		$this->load->view('front/login');
 		$this->login();
  		$this->footer();
 	}
@@ -65,12 +54,17 @@ class front extends CI_Controller {
 	
 	public function verify(){
 		
-		var_dump($_POST);
+		//var_dump($_POST);
+		$this->form_validation->set_rules('username', 'Username', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required', array('required' => 'You must provide a %s.'));
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$html = "<p style=' color = red '> its false </p>";
-			echo html_escape($html);
+			$this->load->view('front/login');
+		}
+		else
+		{
+			$this->load->view('front/logon');
 		}
 		
 	}
