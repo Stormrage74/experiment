@@ -28,10 +28,17 @@ class front extends CI_Controller {
 	
 	public function index()
 	{
+		if (isset($_SESSION['item']))
+		{
+			$this->load->view('front/logon');
+		}
+		else
+		{
+			$this->header("login");
+			$this->login();
+			$this->footer();
+		}
 		
-		$this->header("login");
-		$this->login();
- 		$this->footer();
 	}
 	
 	private function header($title = NULL, $localjs = "event.js")
@@ -49,6 +56,7 @@ class front extends CI_Controller {
 	
 	public function login()
 	{
+		//var_dump($_SESSION['item']);
 		$this->load->view('front/login');
 	}
 	
@@ -64,6 +72,7 @@ class front extends CI_Controller {
 		}
 		else
 		{
+			$_SESSION['item'] = "yolo";
 			$this->load->view('front/logon');
 		}
 		
