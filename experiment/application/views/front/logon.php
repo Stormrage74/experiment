@@ -15,5 +15,8 @@ echo form_open('front/logout', $close);
 echo form_submit('close_session', 'LOG OUT');
 echo form_close();
 
+echo br(3);
+echo anchor('front/upload', 'UPLOADING');
+
 
 ?>

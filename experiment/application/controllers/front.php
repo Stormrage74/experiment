@@ -47,6 +47,11 @@ class front extends CI_Controller {
 		$this->load->view('front/login');
 	}
 	
+	public function upload()
+	{
+		$this->load->view('front/uploads');
+	}
+	
 	public function verify()
 	{
 		
@@ -80,20 +85,28 @@ class front extends CI_Controller {
 		{
 			$prefixe .= $username;
 		}
-		else
-		{
-			foreach (range(0, 10) as $number) {
-				$prefixe .= $number;
-			}
-		}
+// 		else
+// 		{
+// 			foreach (range(0, 10) as $number) {
+// 				$prefixe .= $number;
+// 			}
+// 		}
 		
 		echo $prefixe;
 		
-		$config['upload_path']          = 'application/uploads/';
+		
+		$config['upload_path']          = 'application/uploads/'+$prefixe;
 		$config['allowed_types']        = 'gif|jpg|png|txt';
 		$config['max_size']             = 100;
 		$config['max_width']            = 1024;
 		$config['max_height']           = 768;
+		
+// 		if (!is_dir($config['upload_path']))
+// 		{
+// 			print_r('im here');
+// 			mkdir($config['upload_path'], 0777, TRUE);
+// 		}
+		
 	
 		$this->load->library('upload', $config);
 	
@@ -101,7 +114,7 @@ class front extends CI_Controller {
 		{
 			$error = array('error' => $this->upload->display_errors());
 	
-			$this->load->view('front/upload', $error);
+			$this->load->view('front/uploads', $error);
 		}
 		else
 		{
