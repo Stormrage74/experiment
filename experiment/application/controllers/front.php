@@ -28,7 +28,7 @@ class front extends CI_Controller {
 	
 	public function index()
 	{
-		if (isset($_SESSION['item']))
+		if (isset($_SESSION['username']))
 		{
 			$this->load->view('front/logon');
 		}
@@ -41,26 +41,14 @@ class front extends CI_Controller {
 		
 	}
 	
-	private function header($title = NULL, $localjs = "event.js")
-	{
-		$data['title'] = $title;
-		$data['localjs'] = $localjs;
-		$this->load->view('front/header', $data);
-	}
-	
-	private function footer()
-	{ 
-		$data = NULL;
-		$this->load->view('front/footer',$data);
-	}
 	
 	public function login()
 	{
-		//var_dump($_SESSION['item']);
 		$this->load->view('front/login');
 	}
 	
-	public function verify(){
+	public function verify()
+	{
 		
 		//var_dump($_POST);
 		$this->form_validation->set_rules('username', 'Username', 'required');
@@ -72,11 +60,35 @@ class front extends CI_Controller {
 		}
 		else
 		{
-			$_SESSION['item'] = "yolo";
+			//$_SESSION['username'] = $_POST['username'];
+			$this->session->set_tempdata('username', $this->input->post('username'));
 			$this->load->view('front/logon');
 		}
 		
 	}
+	
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('/');
+	}
+	
+	
+	// static functions
+	
+	private function header($title = NULL, $localjs = "event.js")
+	{
+		$data['title'] = $title;
+		$data['localjs'] = $localjs;
+		$this->load->view('front/header', $data);
+	}
+	
+	private function footer()
+	{
+		$data = NULL;
+		$this->load->view('front/footer',$data);
+	}
+	
 	
 	
 	

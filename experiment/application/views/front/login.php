@@ -31,7 +31,7 @@ echo form_input($username);
 echo br(2);
 echo form_input($password);
 echo br(3);
-echo form_submit('submit_login', 'SEND');
+echo form_submit('submit_login', 'LOG IN');
 echo form_close();
 
 
