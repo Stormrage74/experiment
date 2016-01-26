@@ -21,7 +21,10 @@ elseif (isset($upload_data))
 <p>download succeded</p>
 <? echo br(2);?>
 <ul>
-<?php foreach ($upload_data as $item => $value):?>
+<?php
+var_dump($upload_data);
+
+foreach ($upload_data as $item => $value):?>
 <li><?php echo $item;?>: <?php echo $value;?></li>
 <?php endforeach; ?>
 </ul>
