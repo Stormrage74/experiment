@@ -73,7 +73,43 @@ class front extends CI_Controller {
 		redirect('/');
 	}
 	
+	public function do_upload($username = NULL)
+	{
+		$prefixe = '__dir__';
+		if (isset($username))
+		{
+			$prefixe .= $username;
+		}
+		else
+		{
+			foreach (range(0, 10) as $number) {
+				$prefixe .= $number;
+			}
+		}
+		
+		echo $prefixe;
+		
+		$config['upload_path']          = 'application/uploads/';
+		$config['allowed_types']        = 'gif|jpg|png|txt';
+		$config['max_size']             = 100;
+		$config['max_width']            = 1024;
+		$config['max_height']           = 768;
 	
+		$this->load->library('upload', $config);
+	
+		if ( ! $this->upload->do_upload('userfile'))
+		{
+			$error = array('error' => $this->upload->display_errors());
+	
+			$this->load->view('front/upload', $error);
+		}
+		else
+		{
+			$data = array('upload_data' => $this->upload->data());
+	
+			$this->load->view('front/uploads', $data);
+		}
+	}
 	// static functions
 	
 	private function header($title = NULL, $localjs = "event.js")
