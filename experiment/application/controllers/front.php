@@ -55,21 +55,27 @@ class front extends CI_Controller {
 	public function verify()
 	{
 		
-		//var_dump($_POST);
-		$this->form_validation->set_rules('username', 'Username', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required', array('required' => 'You must provide a %s.'));
-		
-		if ($this->form_validation->run() == FALSE)
+		if (isset($_SESSION['username']))
 		{
-			$this->load->view('vfront/login');
-		}
-		else
-		{
-			//$_SESSION['username'] = $_POST['username'];
-			$this->session->set_tempdata('username', $this->input->post('username'));
 			$this->load->view('vfront/logon');
 		}
-		
+		else 
+		{
+			//var_dump($_POST);
+			$this->form_validation->set_rules('username', 'Username', 'required');
+			$this->form_validation->set_rules('password', 'Password', 'required', array('required' => 'You must provide a %s.'));
+			
+			if ($this->form_validation->run() == FALSE)
+			{
+				$this->load->view('vfront/login');
+			}
+			else
+			{
+				//$_SESSION['username'] = $_POST['username'];
+				$this->session->set_tempdata('username', $this->input->post('username'));
+				$this->load->view('vfront/logon');
+			}
+		}
 	}
 	
 	public function logout()
@@ -94,6 +100,29 @@ class front extends CI_Controller {
 			$this->load->view('vfront/success_upload', $data);
 		}
 	}
+	
+	
+	public function listFiles()
+	{
+		$data = get_filenames(APPPATH.'uploads/');
+		var_dump($data);
+		$this->header('list files');
+		$this->load->view('vfront/listFiles', $data);
+		$this->footer();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// static functions
 	
 	private function header($title = NULL, $localjs = "event.js")

@@ -17,6 +17,7 @@ echo form_close();
 
 echo br(3);
 echo anchor('front/upload', 'UPLOADING');
-
+echo br(1);
+echo anchor('front/listFiles', 'LIST FILES');
 
 ?>
