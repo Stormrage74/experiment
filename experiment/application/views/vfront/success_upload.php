@@ -14,7 +14,8 @@
 <?php endforeach; ?>
 </ul>
 
-<p><?php echo anchor('font/upload', 'Upload Another File!'); ?></p>
-
+<p><?php echo anchor('front/upload', 'Upload Another File!'); ?></p>
+<br>
+<p><?php echo anchor('front/verify', 'back to menu'); ?></p>
 </body>
 </html>

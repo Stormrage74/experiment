@@ -30,7 +30,7 @@ class front extends CI_Controller {
 	{
 		if (isset($_SESSION['username']))
 		{
-			$this->load->view('front/logon');
+			$this->load->view('vfront/logon');
 		}
 		else
 		{
@@ -44,12 +44,12 @@ class front extends CI_Controller {
 	
 	public function login()
 	{
-		$this->load->view('front/login');
+		$this->load->view('vfront/login');
 	}
 	
 	public function upload()
 	{
-		$this->load->view('front/uploads');
+		$this->load->view('vfront/uploads');
 	}
 	
 	public function verify()
@@ -61,13 +61,13 @@ class front extends CI_Controller {
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view('front/login');
+			$this->load->view('vfront/login');
 		}
 		else
 		{
 			//$_SESSION['username'] = $_POST['username'];
 			$this->session->set_tempdata('username', $this->input->post('username'));
-			$this->load->view('front/logon');
+			$this->load->view('vfront/logon');
 		}
 		
 	}
@@ -78,49 +78,20 @@ class front extends CI_Controller {
 		redirect('/');
 	}
 	
-	public function do_upload($username = NULL)
+	public function do_upload()
 	{
-		$prefixe = '__dir__';
-		if (isset($username))
-		{
-			$prefixe .= $username;
-		}
-// 		else
-// 		{
-// 			foreach (range(0, 10) as $number) {
-// 				$prefixe .= $number;
-// 			}
-// 		}
 		
-		echo $prefixe;
-		
-		
-		$config['upload_path']          = 'application/uploads/'+$prefixe;
-		$config['allowed_types']        = 'gif|jpg|png|txt';
-		$config['max_size']             = 100;
-		$config['max_width']            = 1024;
-		$config['max_height']           = 768;
-		
-// 		if (!is_dir($config['upload_path']))
-// 		{
-// 			print_r('im here');
-// 			mkdir($config['upload_path'], 0777, TRUE);
-// 		}
-		
-	
-		$this->load->library('upload', $config);
-	
-		if ( ! $this->upload->do_upload('userfile'))
+		if (!$this->upload->do_upload('files')) // file is the name of the input area
 		{
 			$error = array('error' => $this->upload->display_errors());
 	
-			$this->load->view('front/uploads', $error);
+			$this->load->view('vfront/uploads', $error);
 		}
 		else
 		{
 			$data = array('upload_data' => $this->upload->data());
 	
-			$this->load->view('front/uploads', $data);
+			$this->load->view('vfront/success_upload', $data);
 		}
 	}
 	// static functions
@@ -129,13 +100,13 @@ class front extends CI_Controller {
 	{
 		$data['title'] = $title;
 		$data['localjs'] = $localjs;
-		$this->load->view('front/header', $data);
+		$this->load->view('vfront/header', $data);
 	}
 	
 	private function footer()
 	{
 		$data = NULL;
-		$this->load->view('front/footer',$data);
+		$this->load->view('vfront/footer',$data);
 	}
 	
 	
