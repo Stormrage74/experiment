@@ -104,15 +104,52 @@ class front extends CI_Controller {
 	
 	public function listFiles()
 	{
-		$data = get_filenames(APPPATH.'uploads/');
-		var_dump($data);
+		$data = array('upload_file' => get_filenames(APPPATH.'uploads/'));
+		//var_dump($data);
 		$this->header('list files');
 		$this->load->view('vfront/listFiles', $data);
 		$this->footer();
 	}
 	
+	public function makeDir($pathname = NULL)
+	{
+		//TODO: depend on user connect, create a dir for upload datas
+		$pathname = APPPATH.'uploads/test';
+		if (!is_dir($pathname))
+		{
+			if(!mkdir($pathname, 0777, TRUE))
+			{
+				die('Failed to create folders...');
+			}
+			else
+			{
+				print_r('directory successfully created...');
+			}
+		}
+		else 
+		{
+			print_r('Folder already exists');
+			echo br(2);
+			echo form_open('front/delDir');
+			echo form_submit('del_folder', 'delete existing folder');
+			echo form_close();
+		}
+		
+	}
 	
 	
+	public function delDir($pathname = NULL)
+	{
+		if(is_dir($pathname))
+		{
+			rmdir($pathname);
+			echo 'succesfuly deleted...';
+		}
+		else 
+		{
+			die('not a directory...');
+		}
+	}
 	
 	
 	

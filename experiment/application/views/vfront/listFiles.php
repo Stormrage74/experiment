@@ -1,6 +1,6 @@
 
 <ul>
-<?php foreach ($data as $item => $value):?>
+<?php foreach ($upload_file as $item => $value):?>
 <li><?php echo $item;?>: <?php echo $value;?></li>
 <?php endforeach; ?>
 </ul>
