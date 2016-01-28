@@ -30,13 +30,11 @@ class front extends CI_Controller {
 	{
 		if (isset($_SESSION['username']))
 		{
-			$this->load->view('vfront/logon');
+			$this->logon();
 		}
 		else
 		{
-			$this->header("login");
 			$this->login();
-			$this->footer();
 		}
 		
 	}
@@ -44,36 +42,59 @@ class front extends CI_Controller {
 	
 	public function login()
 	{
+		$this->header("LOGIN PAGE");
 		$this->load->view('vfront/login');
+		$this->footer();
+		
 	}
 	
-	public function upload()
+	public function upload($data = NULL)
 	{
-		$this->load->view('vfront/uploads');
+		$this->header("UPLOAD PAGE");
+		$this->load->view('vfront/uploads', $data);
+		$this->footer();
+	}
+	
+	public function successUpload($data = NULL)
+	{
+		$this->header("UPLOAD PAGE 2");
+		$this->load->view('vfront/success_upload', $data);
+		$this->footer();
+	}
+	
+	public function files($data = '')
+	{
+		$this->header("FILES PAGE");
+		$this->load->view('vfront/listFiles', $data);
+		$this->footer();
+	}
+	
+	public function logon()
+	{
+		$this->header("LOGON PAGE");
+		$this->load->view('vfront/logon');
+		$this->footer();
 	}
 	
 	public function verify()
 	{
-		
 		if (isset($_SESSION['username']))
 		{
-			$this->load->view('vfront/logon');
+			$this->logon();
 		}
 		else 
 		{
-			//var_dump($_POST);
 			$this->form_validation->set_rules('username', 'Username', 'required');
 			$this->form_validation->set_rules('password', 'Password', 'required', array('required' => 'You must provide a %s.'));
 			
 			if ($this->form_validation->run() == FALSE)
 			{
-				$this->load->view('vfront/login');
+				$this->login();
 			}
 			else
 			{
-				//$_SESSION['username'] = $_POST['username'];
 				$this->session->set_tempdata('username', $this->input->post('username'));
-				$this->load->view('vfront/logon');
+				$this->logon();
 			}
 		}
 	}
@@ -86,69 +107,85 @@ class front extends CI_Controller {
 	
 	public function do_upload()
 	{
-		
-		if (!$this->upload->do_upload('files')) // file is the name of the input area
+		if (!$this->upload->do_upload('files')) // files is the name of the input area take care if you changed it
 		{
-			$error = array('error' => $this->upload->display_errors());
-	
-			$this->load->view('vfront/uploads', $error);
+			$data['error'] = $this->upload->display_errors();
+			$this->upload($data);
 		}
 		else
 		{
 			$data = array('upload_data' => $this->upload->data());
-	
-			$this->load->view('vfront/success_upload', $data);
+			$this->successUpload($data);
 		}
 	}
 	
 	
 	public function listFiles()
 	{
-		$data = array('upload_file' => get_filenames(APPPATH.'uploads/'));
-		//var_dump($data);
-		$this->header('list files');
-		$this->load->view('vfront/listFiles', $data);
-		$this->footer();
+		$data['upload_file']= get_filenames(APPPATH.'uploads/');
+		$this->files($data);
 	}
 	
-	public function makeDir($pathname = NULL)
+	public function makeDir()
 	{
-		//TODO: depend on user connect, create a dir for upload datas
-		$pathname = APPPATH.'uploads/test';
-		if (!is_dir($pathname))
+		
+		$this->form_validation->set_rules('path', 'Path', 'required');
+		if ($this->form_validation->run() == TRUE)
 		{
-			if(!mkdir($pathname, 0777, TRUE))
+			$pathname = APPPATH.'uploads/';
+			$pathname .= $this->input->post('path');
+			$data['result'] = 1;
+			if (!is_dir($pathname))
 			{
-				die('Failed to create folders...');
+				if(!mkdir($pathname, 0777, TRUE))
+				{
+					$this->files($data);
+				}
+				else
+				{
+					$data['result'] = 2;
+					$this->files($data);
+				}
 			}
 			else
 			{
-				print_r('directory successfully created...');
+				$data['result'] = 3;
+				$this->files($data);
 			}
 		}
 		else 
 		{
-			print_r('Folder already exists');
-			echo br(2);
-			echo form_open('front/delDir');
-			echo form_submit('del_folder', 'delete existing folder');
-			echo form_close();
+			$this->files();
 		}
-		
+		//TODO: depend on user connect, create a dir for upload datas
 	}
 	
 	
-	public function delDir($pathname = NULL)
+	public function delDir()
 	{
-		if(is_dir($pathname))
+		
+		$this->form_validation->set_rules('delpath', 'Delpath', 'required');
+		
+		if ($this->form_validation->run() == TRUE)
 		{
-			rmdir($pathname);
-			echo 'succesfuly deleted...';
+			$pathname = APPPATH.'uploads/';
+			$pathname .= $this->input->post('delpath');
+			var_dump($pathname);
+			if(is_dir($pathname))
+			{
+				rmdir($pathname) ? $data['deletion'] = TRUE : NULL;
+				$this->files($data);
+			}
+			else 
+			{
+				die('not a directory...');
+			}
 		}
-		else 
+		else
 		{
-			die('not a directory...');
+			print_r('inter here');
 		}
+		
 	}
 	
 	
@@ -169,9 +206,8 @@ class front extends CI_Controller {
 		$this->load->view('vfront/header', $data);
 	}
 	
-	private function footer()
+	private function footer($data = NULL)
 	{
-		$data = NULL;
 		$this->load->view('vfront/footer',$data);
 	}
 	
