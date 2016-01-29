@@ -7,6 +7,7 @@
 			'value'	=>	set_value('path')
 	);
 
+	echo form_error('path');
 	echo form_open('front/makeDir');
 	echo form_input($data);
 	echo form_submit('create_dir', 'create new folder');
@@ -15,6 +16,7 @@
 
 	if (isset($upload_file))
 	{
+		echo "<p> listed files </p>";
 		echo ul($upload_file);
 	}
 	
