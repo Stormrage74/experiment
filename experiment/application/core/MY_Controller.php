@@ -1,4 +1,4 @@
-<?php
+s<?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -48,11 +48,9 @@ class MY_Controller extends CI_Controller {
 	
 	protected function authentification() {
 		
-		if (false) {
-			print_r('im alive');
-			return "bob";
+		if (!$this->userIsSet()) {
+			$this->error401();
 		}
-		$this->error401();
 	}
 	
 	protected function userIsSet() {
@@ -60,6 +58,7 @@ class MY_Controller extends CI_Controller {
 			$session_data = $this->session->userdata('logged_in');
 			return $session_data['id'];
 		} else {
+			
 			redirect('auth/login', 'refresh');
 		}
 	}

@@ -108,6 +108,23 @@ class MY_Lang extends CI_Lang {
 			return FALSE;
 	}
 	
+	// add language segment to $uri (if appropriate)
+	function localized($uri)
+	{
+		if (!empty($uri))
+		{
+			$uri_segment = $this->get_uri_lang($uri);
+			if (!$uri_segment['lang'])
+			{
+	
+				if ((!$this->is_special($uri_segment['parts'][0])) && (!preg_match('/(.+)\.[a-zA-Z0-9]{2,4}$/', $uri)))
+				{
+					$uri = $this->lang() . '/' . $uri;
+				}
+			}
+		}
+		return $uri;
+	}
 	
 	function switch_uri($lang)
 	{

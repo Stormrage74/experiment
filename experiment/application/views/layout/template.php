@@ -14,7 +14,6 @@
         echo link_tag('assets/css/jquery-ui.css');
         echo link_tag('assets/css/jquery.ui.autocomplete.css');
         echo link_tag('assets/css/jquery.ui.datepicker.css');
-        echo link_tag('assets/css/paginator.css');
 
         foreach ($css as $c):
             echo link_tag(CSS . $c);

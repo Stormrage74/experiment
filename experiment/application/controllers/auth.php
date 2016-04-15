@@ -12,6 +12,7 @@ class Auth extends MY_Controller {
 	}
 	
 	public function login ($msg = null) {
+		$this->menu = false;
 		$this->sousTitre = lang('identification');
 		$this->_render();
 	}
