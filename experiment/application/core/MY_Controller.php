@@ -10,14 +10,18 @@ class MY_Controller extends CI_Controller {
 	protected $directory_name;
 	protected $controller_name;
 	protected $action_name;
-	
-	protected $title = 'rego';
+	protected $title = "RREGO";
 	protected $sousTitre = "";
 	protected $template = "template";
 	protected $header_view = "header";
 	protected $footer_view = "footer";
 	protected $menu_view = "menu";
 	protected $menu = true;
+	
+	protected $baseUrl;
+	protected $utilisateur;
+	
+	protected $currLang;
 	
 	
 	public function __construct($auth = true, $lang = true) {
@@ -28,7 +32,6 @@ class MY_Controller extends CI_Controller {
         $this->action_name = $this->router->fetch_method();
         $this->baseUrl = base_url() . $this->lang->lang() . '/';
         $this->load->helper(array('cms'));
-        // chargement fichier lang de base
         $this->lang->load('base');
         $this->lang->load('error');
         
@@ -36,11 +39,31 @@ class MY_Controller extends CI_Controller {
         	$this->lang->load($this->controller_name);
         }
         
+        if ($auth) {
+        	$this->utilisateur = $this->authentification();
+        }
+        
         $this->currLang = $this->lang->lang();
 	}
 	
+	protected function authentification() {
+		
+		if (false) {
+			print_r('im alive');
+			return "bob";
+		}
+		$this->error401();
+	}
 	
-	//not in use
+	protected function userIsSet() {
+		if ($this->session->userdata('logged_in')) {
+			$session_data = $this->session->userdata('logged_in');
+			return $session_data['id'];
+		} else {
+			redirect('auth/login', 'refresh');
+		}
+	}
+	
 	protected function error401() {
 		$this->error('401', 'auth necessary');
 	}

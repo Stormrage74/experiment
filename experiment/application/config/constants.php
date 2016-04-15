@@ -83,3 +83,40 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+/*
+|--------------------------------------------------------------------------
+| Custom constants
+|--------------------------------------------------------------------------
+ */
+
+/*
+ * future useful
+ * 
+ * define('DOMAIN', 'site.com');
+define('SENDMAIL', '/usr/sbin/sendmail');
+
+define('NOREPLY_EMAIL', 'noreply@site.com');
+define('NOREPLY_PASSWORD', '$Detaxe$');
+define('CONTACT_EMAIL_NOREPLY','noreply@site.com');
+define('CONTACT_EMAIL_NOREPLY_NOM','site.com');
+
+define('SERVER_MAIL_PORT', 'XXX');
+
+
+if (ENVIRONMENT == 'development') {
+    define('PATH_SITE', '/var/www/site/');
+}
+else if (ENVIRONMENT == 'testing') {
+    define('PATH_SITE', '/var/www/dev.site.com/');
+}
+else {
+    define('PATH_SITE', '/var/www/site.com/');
+}
+ */
+
+define('IMAGES','assets/img/');
+define('JS','assets/js/');
+define('CSS','assets/css/');
+define('UPLOAD','assets/upload/');
+
