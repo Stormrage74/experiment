@@ -1,4 +1,4 @@
-s<?php
+<?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -26,7 +26,7 @@ class MY_Controller extends CI_Controller {
 	
 	public function __construct($auth = true, $lang = true) {
 		parent::__construct();
-		
+		$this->load->model('utilisateur_model');
 		$this->directory_name = $this->router->fetch_directory();
         $this->controller_name = $this->router->fetch_class();
         $this->action_name = $this->router->fetch_method();
@@ -34,6 +34,8 @@ class MY_Controller extends CI_Controller {
         $this->load->helper(array('cms'));
         $this->lang->load('base');
         $this->lang->load('error');
+        
+        
         
         if ($lang) {
         	$this->lang->load($this->controller_name);
@@ -130,6 +132,5 @@ class MY_Controller extends CI_Controller {
 	private function getViewName($view) {
 		return $view ? $view : $this->controller_name . '/' . $this->action_name;
 	}
-	
 	
 }

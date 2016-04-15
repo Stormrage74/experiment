@@ -101,7 +101,7 @@ define('NOREPLY_PASSWORD', '$Detaxe$');
 define('CONTACT_EMAIL_NOREPLY','noreply@site.com');
 define('CONTACT_EMAIL_NOREPLY_NOM','site.com');
 
-define('SERVER_MAIL_PORT', 'XXX');
+define('SERVER_MAIL_PORT', 'x');
 
 
 if (ENVIRONMENT == 'development') {

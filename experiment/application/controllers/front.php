@@ -12,7 +12,6 @@ class front extends MY_Controller {
 	}
 	
 	function index() {
-	//	_render('auth/login');
 	}
 	
 }

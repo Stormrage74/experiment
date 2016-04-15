@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<usersList>
+	<user xml:id="id_0" status="on">
+		<username>test</username>
+		<password>test1</password>
+		<name>mrtest</name>
+	</user>
+	<user xml:id="id_1" status="off">
+		<username>test2</username>
+		<password>test22</password>
+		<name>mrtest2</name>
+	</user>
+</usersList>
