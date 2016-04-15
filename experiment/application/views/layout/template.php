@@ -7,8 +7,8 @@
         <meta http-equiv="Pragma" content="no-cache" />
         <meta http-equiv="Expires" content="0" />
         <?php
-        echo link_tag(CSS . 'main.css');
-        echo link_tag(CSS . 'menu.css');
+       // echo link_tag(CSS . 'main.css');
+       // echo link_tag(CSS . 'menu.css');
         echo link_tag(CSS . 'jquery.fancybox.css');
         echo link_tag('assets/css/jquery.fancybox-buttons.css');
         echo link_tag('assets/css/jquery-ui.css');
@@ -22,7 +22,7 @@
 
         echo script_tag(JS . 'jquery.min.js');
         echo script_tag(JS . 'jquery-ui-1.10.3.custom.min.js');
-        echo script_tag(JS . 'jquery.ui.datepicker-fr.js');
+      //  echo script_tag(JS . 'jquery.ui.datepicker-fr.js');
         echo script_tag(JS . 'jquery.placeholder.js');
         echo script_tag(JS . 'jquery.fancybox.pack-modif.js');
         echo script_tag(JS . 'jquery.fancybox-buttons.js');

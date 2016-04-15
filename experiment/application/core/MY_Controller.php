@@ -13,24 +13,30 @@ class MY_Controller extends CI_Controller {
 	
 	protected $title = 'rego';
 	protected $sousTitre = "";
+	protected $template = "template";
 	protected $header_view = "header";
 	protected $footer_view = "footer";
 	protected $menu_view = "menu";
 	protected $menu = true;
 	
 	
-	public function __construct($auth = true, $lang = false /* passer a true quand configuré */) {
+	public function __construct($auth = true, $lang = true) {
 		parent::__construct();
 		
 		$this->directory_name = $this->router->fetch_directory();
         $this->controller_name = $this->router->fetch_class();
         $this->action_name = $this->router->fetch_method();
         $this->baseUrl = base_url() . $this->lang->lang() . '/';
+        $this->load->helper(array('cms'));
+        // chargement fichier lang de base
+        $this->lang->load('base');
+        $this->lang->load('error');
         
         if ($lang) {
         	$this->lang->load($this->controller_name);
         }
         
+        $this->currLang = $this->lang->lang();
 	}
 	
 	
@@ -72,9 +78,7 @@ class MY_Controller extends CI_Controller {
 		$this->load->view("layout/template", $data);
 	}
 	
-	private function getViewName($view) {
-		return $view ? $view : $this->controller_name . '/' . $this->action_name;
-	}
+	
 	
 	// for json call
 	protected function _json($auth = false) {
@@ -99,6 +103,10 @@ class MY_Controller extends CI_Controller {
 		}
 		Header( "Content-type: application/" . $mimeType);
 		echo $content;
+	}
+	
+	private function getViewName($view) {
+		return $view ? $view : $this->controller_name . '/' . $this->action_name;
 	}
 	
 	
