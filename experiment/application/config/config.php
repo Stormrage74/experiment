@@ -23,6 +23,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
+
+
+/*
+ * 
+ * if (php_sapi_name() != 'cli') {
+    if ($_SERVER["SERVER_PORT"] == "80") {
+        $config['base_url'] = "http://" . $_SERVER['HTTP_HOST'] . "/alias/";
+    }
+    else {
+        $config['base_url'] = "https://" . $_SERVER['HTTP_HOST'] . "/alias/";
+    }
+}
+else {
+    $config['base_url'] = '';
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
 $config['base_url'] = 'http://127.0.0.11:80/';
 
 /*
