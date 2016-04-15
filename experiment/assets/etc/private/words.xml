@@ -2,12 +2,12 @@
 <usersList>
 	<user xml:id="id_0" status="on">
 		<username>test</username>
-		<password>test1</password>
+		<password>b444ac06613fc8d63795be9ad0beaf55011936ac</password>
 		<name>mrtest</name>
 	</user>
 	<user xml:id="id_1" status="off">
 		<username>test2</username>
-		<password>test22</password>
+		<password>8e59a08ba401da8aedd958b3a65c2d8e70dc8da2</password>
 		<name>mrtest2</name>
 	</user>
 </usersList>

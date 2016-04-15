@@ -1,4 +1,6 @@
 <?php
 
 $lang['identification'] 	= "Identification";
-$lang['forgot'] 			= "forgotten password";
+$lang['forgot'] 			= "Forgotten password";
+$lang['nom_utilisateur'] 	= "Username";
+$lang['password'] 			= "Password";

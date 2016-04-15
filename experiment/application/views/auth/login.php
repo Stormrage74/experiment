@@ -1,9 +1,11 @@
 
 <div id="login" >
 	<form id="form_login" action="<?php echo base_url()."auth/verify"; ?>" method="post" >
+			 <label><?php echo lang('nom_utilisateur') ; ?></label>
 			<input type="text" id = "login">
+			 <label><?php echo lang('password') ; ?></label>
 			<input type="password" id = "password">
-			<input type="submit" id="btn_valid" value="<?php echo lang('validate');?>">
+			<input type="submit" value="<?php echo lang('validate');?>">
 	</form>
 	
 

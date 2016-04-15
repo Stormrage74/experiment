@@ -119,4 +119,5 @@ define('IMAGES','assets/img/');
 define('JS','assets/js/');
 define('CSS','assets/css/');
 define('UPLOAD','assets/upload/');
+define('PRIVATE_DIR', 'assets/etc/private/');
 
