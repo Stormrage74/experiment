@@ -23,12 +23,19 @@ class Auth extends MY_Controller {
 	}
 	
 	public function verify() {
-		var_dump($_POST);
-		$utilisateur = new Utilisateur_Model();
-		$utilisateur->username = $this->post('login');
-		$utilisateur->password = $this->post('password');
-		var_dump($utilisateur);
-		$utilisateur->getCredential();
+		
+		$this->form_validation->set_rules('username', 'Username', 'required', array('required' => 'You must provide a %s.'));
+		$this->form_validation->set_rules('password', 'Password', 'required', array('required' => 'You must provide a %s.'));
+		
+		$data = $_POST;
+		print_r("hello w ! ");
+		var_dump($data);
+// 		var_dump($this->input->post('login'));
+// 		$utilisateur = new Utilisateur_Model();
+// 		$utilisateur->username = $this->post('login');
+// 		$utilisateur->password = $this->post('password');
+// 		var_dump($utilisateur);
+
 // 		$chars = "test22";
 // 		var_dump(sha1($chars));
 		
