@@ -1,0 +1,15 @@
+@CHARSET "ISO-8859-1";
+
+.login_form{
+	display: inline-block;
+	
+}
+
+input.error {
+	background-color:#fdeaea;
+}
+
+label.error {
+	color:red;
+	background-color: rgba(0,0,0,0);
+}

@@ -10,6 +10,7 @@ class Auth extends MY_Controller {
 	function __construct() {
 		parent::__construct(false);
 		$this->menu = false;
+		$this->css[] = 'main.css';
 	}
 	
 	public function login ($msg = null) {
@@ -24,12 +25,26 @@ class Auth extends MY_Controller {
 	
 	public function verify() {
 		
-		$this->form_validation->set_rules('username', 'Username', 'required', array('required' => 'You must provide a %s.'));
-		$this->form_validation->set_rules('password', 'Password', 'required', array('required' => 'You must provide a %s.'));
-		
-		$data = $_POST;
-		print_r("hello w ! ");
-		var_dump($data);
+	
+		if ($this->post('input_login') && $this->post('input_password')) {
+			$d_pass = $this->post('input_password');
+			$d_login = $this->post('input_login');
+			
+// 			$utilisateur->checkUser($d_login, $d_pass)
+			
+			$sha1 = sha1($d_pass);
+			$utilisateur = new Utilisateur_Model();
+			$sess_array = array(
+					'id' => $utilisateur->id,
+					'login' => $utilisateur->username,
+					'log_in' => $utilisateur->log_in
+			);
+			$this->session->set_userdata($sess_array);
+ 			redirect('front/index', 'refresh');
+	}
+			
+// 			$this->data['logout'] = "Login ou mot de passe incorrect";
+			//$this->_render('auth/login');
 // 		var_dump($this->input->post('login'));
 // 		$utilisateur = new Utilisateur_Model();
 // 		$utilisateur->username = $this->post('login');
@@ -46,8 +61,8 @@ class Auth extends MY_Controller {
 // 		if ($this->form_validation->run()) {
 // 			$utilisateur = new Utilisateur_Model();
 		
-// 			$result = $utilisateur->login($this->input->post('login'), $this->input->post('password'));
-// 			if ($result) {
+// // 			$result = $utilisateur->login($this->input->post('login'), $this->input->post('password'));
+// // 			if ($result) {
 // 				$sess_array = array(
 // 						'id' => $utilisateur->id,
 // 						'login' => $utilisateur->login,
@@ -55,7 +70,7 @@ class Auth extends MY_Controller {
 // 				);
 // 				$this->session->set_userdata('logged_in', $sess_array);
 // 				redirect('bordereau/index', 'refresh');
-// 			}
+// // 			}
 // 		}
 // 		$this->logout("Login ou mot de passe incorrect");
 	}

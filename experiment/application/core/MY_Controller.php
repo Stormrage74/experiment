@@ -50,18 +50,21 @@ class MY_Controller extends CI_Controller {
 	
 	protected function authentification() {
 		
+		 $a = $this->userIsSet();
+		var_dump($this->session->userdata('log_in'));
 		if (!$this->userIsSet()) {
-			$this->error401();
+			var_dump($this->session->userdata('log_in'));
+			//$this->error401();
 		}
 	}
 	
 	protected function userIsSet() {
-		if ($this->session->userdata('logged_in')) {
-			$session_data = $this->session->userdata('logged_in');
-			return $session_data['id'];
+		if ($this->session->userdata('log_in')) {
+			$session_data = $this->session->userdata('id');
+			return $session_data;
 		} else {
 			
-			redirect('auth/login', 'refresh');
+			//redirect('auth/login', 'refresh');
 		}
 	}
 	

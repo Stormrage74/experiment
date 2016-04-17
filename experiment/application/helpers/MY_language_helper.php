@@ -39,7 +39,7 @@ function switchLang($lang) {
     return $CI->lang->switch_uri($lang);
 }
 
-function getCurrLang($lang) {
+function getCurrLang($lang = null) {
 	$CI = & get_instance();
 	return $CI->lang->lang();
 }
