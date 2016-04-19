@@ -29,18 +29,19 @@ class Auth extends MY_Controller {
 		if ($this->post('input_login') && $this->post('input_password')) {
 			$d_pass = $this->post('input_password');
 			$d_login = $this->post('input_login');
-			
-// 			$utilisateur->checkUser($d_login, $d_pass)
-			
 			$sha1 = sha1($d_pass);
 			$utilisateur = new Utilisateur_Model();
+			$utilisateur->checkUser($d_login, $d_pass);
 			$sess_array = array(
 					'id' => $utilisateur->id,
 					'login' => $utilisateur->username,
 					'log_in' => $utilisateur->log_in
 			);
 			$this->session->set_userdata($sess_array);
- 			redirect('front/index', 'refresh');
+			$this->session->set_userdata('hello', 'hi');
+			var_dump($this->session->userdata('hello'));
+			var_dump($sess_array);
+ 		//	redirect('front/index', 'refresh');
 	}
 			
 // 			$this->data['logout'] = "Login ou mot de passe incorrect";

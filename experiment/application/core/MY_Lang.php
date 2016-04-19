@@ -16,6 +16,7 @@ class MY_Lang extends CI_Lang {
 			'en' => 'english',
 			'fr' => 'french',
 	);
+	private $special = array ();
 	private $uri;
 	private $default_uri;
 	private $lang_code;

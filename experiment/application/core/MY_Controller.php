@@ -49,12 +49,8 @@ class MY_Controller extends CI_Controller {
 	}
 	
 	protected function authentification() {
-		
-		 $a = $this->userIsSet();
-		var_dump($this->session->userdata('log_in'));
 		if (!$this->userIsSet()) {
-			var_dump($this->session->userdata('log_in'));
-			//$this->error401();
+			$this->error401();
 		}
 	}
 	
