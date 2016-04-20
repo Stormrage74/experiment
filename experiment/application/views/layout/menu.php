@@ -1,7 +1,7 @@
     <div id="menu" class="clear six">
         <ul>
             <li <?php    ?>>
-            	<a href=""><?php  ?></a>
+            	<a href=""><?php  echo lang('index');?></a>
             </li>
             
             <li <?php ?> >

@@ -14,8 +14,7 @@ class Auth extends MY_Controller {
 	}
 	
 	public function login ($msg = null) {
-		$this->sousTitre = lang('identification');
-		$this->_render();
+		$this->_render('auth/login');
 	}
 	
 	
@@ -24,26 +23,27 @@ class Auth extends MY_Controller {
 	}
 	
 	public function verify() {
-		
-	
 		if ($this->post('input_login') && $this->post('input_password')) {
-			$d_pass = $this->post('input_password');
-			$d_login = $this->post('input_login');
-			$sha1 = sha1($d_pass);
-			$utilisateur = new Utilisateur_Model();
-			$utilisateur->checkUser($d_login, $d_pass);
-			$sess_array = array(
-					'id' => $utilisateur->id,
-					'login' => $utilisateur->username,
-					'log_in' => $utilisateur->log_in
-			);
-			$this->session->set_userdata($sess_array);
-			$this->session->set_userdata('hello', 'hi');
-			var_dump($this->session->userdata('hello'));
-			var_dump($sess_array);
- 		//	redirect('front/index', 'refresh');
-	}
+			$login = $this->post('input_login');
+			$pass = sha1($this->post('input_password'));
 			
+			$utilisateur = new Utilisateur_Model();
+			$result = $utilisateur->login($login, $pass);
+			if ($result) {
+				$sess_array = array(
+						'id' => $utilisateur->id,
+						'login' => $utilisateur->username,
+						'log_in' => $utilisateur->log_in
+				);
+				
+				$this->session->set_userdata('logged',$sess_array);
+				redirect('front/index', 'refresh');
+			}
+		}
+		else {
+			$this->logout("Login ou mot de passe incorrect");
+		}
+	}	
 // 			$this->data['logout'] = "Login ou mot de passe incorrect";
 			//$this->_render('auth/login');
 // 		var_dump($this->input->post('login'));
@@ -74,5 +74,11 @@ class Auth extends MY_Controller {
 // // 			}
 // 		}
 // 		$this->logout("Login ou mot de passe incorrect");
+
+	
+	public function logout($message = null) {
+		$this->session->unset_userdata('logged');
+		$this->login($message);
 	}
+	
 }

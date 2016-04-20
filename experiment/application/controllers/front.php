@@ -12,6 +12,9 @@ class front extends MY_Controller {
 	}
 	
 	function index() {
+// 		print_r('hello');
+// 		var_dump($this->session->userdata('logged'));
+		$this->_render();
 	}
 	
 }

@@ -46,21 +46,31 @@ class MY_Controller extends CI_Controller {
         }
         
         $this->currLang = $this->lang->lang();
+        $this->menu = isset($this->utilisateur);
 	}
 	
 	protected function authentification() {
-		if (!$this->userIsSet()) {
-			$this->error401();
+	
+		$utilisateur = new Utilisateur_Model();
+		
+		if ($utilisateur->selectById($this->getUserId())) {
+            return $utilisateur;
+        }
+        else {
+		$this->error401();
 		}
 	}
 	
-	protected function userIsSet() {
-		if ($this->session->userdata('log_in')) {
-			$session_data = $this->session->userdata('id');
-			return $session_data;
-		} else {
+	protected function getUserId() {
+		
+		if ($this->session->userdata('logged')) {
+			 $session_data = $this->session->userdata('logged');
+			return $session_data['id'];
 			
-			//redirect('auth/login', 'refresh');
+		}
+		else
+		{
+			redirect('auth/login', 'refresh');
 		}
 	}
 	

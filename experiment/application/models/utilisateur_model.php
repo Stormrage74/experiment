@@ -16,11 +16,10 @@ class Utilisateur_Model extends MY_Model {
 		
 	}
 	
-	public function checkUser($login, $pass) {
+	public function login($login, $pass) {
 		$valid = false;
 		$value = array();
-		if ($this->_openConnection()) {
-			$data = $this->_getTablesUser();
+			$data = $this->openStream();
 			foreach ($data as $value)
 			{
 				if ($value['username'] == $login && $value['password'] == $pass)
@@ -36,14 +35,38 @@ class Utilisateur_Model extends MY_Model {
 					$valid = false;
 				}
 			}
-			return $valid;
-		}
-		else {
-		}
+		return $valid;
 	}
 	
 	protected function sha1Control() {
 		
+	}
+	
+	
+	protected function openStream() {
+		if ($this->_openConnection()) {
+		return $this->_getTablesUser();
+		}
+	}
+	
+	
+	
+	public function selectById($int)
+	{
+		$value = array();
+		$data = $this->openStream();
+		foreach ($data as $value)
+		{
+			if ($value['id'] == $int)
+			{
+				return true;
+				break;
+			}
+			else
+			{
+				return false;
+			}
+		}
 	}
 
 }
